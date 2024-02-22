@@ -9,4 +9,4 @@ st.set_page_config(
 )
 st.title('Data Page')
 df = pd.read_csv('data_churn.csv')
-st.dataframe(df)
+st.dataframe(df)g
