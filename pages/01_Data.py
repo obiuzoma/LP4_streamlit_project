@@ -7,6 +7,6 @@ st.set_page_config(
     page_icon = ':)',
     layout='wide'
 )
-st.title('Data Page')
+st.title('Data Page',"data:")
 df = pd.read_csv('data_churn.csv')
-st.dataframe(df)g
+st.dataframe(df)

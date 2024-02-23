@@ -6,7 +6,7 @@ st.set_page_config(
     page_icon = ':)',
     layout='wide'
 )
-st.title('Home Page')
+st.title('Home Page',"home:")
 
 
 # st.title('Hello WorlD')
