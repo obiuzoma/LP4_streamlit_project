@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pandas
+import pandas as pd
 import joblib
 
 
@@ -13,7 +13,7 @@ st.set_page_config(
 st.title('Data Prediction')
 st.cache_resource(show_spinner='Model loading')
 def gradient_pipline():
-    models = joblib.load("./modles/graidient_pipeline.joblib")
+    models = joblib.load("./models/gradient_pipeline.joblib")
     return models
 
 st.cache_resource(show_spinner='Model loading')
@@ -22,7 +22,7 @@ def naives_pipeline():
     return models
 
 def model_selection():
-    st.selectbox('choose a model', options=['Gradient Model', 'Naieves model'], key='choose_models')
+    st.selectbox('choose a model', options=['Gradient Model', 'Naieves model'], key='choose_model')
     if  st.session_state['choose_model'] == 'Gradient Model':
         models = gradient_pipline ()
     else:
@@ -31,27 +31,41 @@ def model_selection():
     encoder = joblib.load('./models/encoder.joblib')
 
     return models, encoder
+
 def data_prediction(models, encoder):
     gender = st.session_state['gender']
-    SeniorCitizen = st.session_state['SeniorCitizen']
-    Partner = st.session_state['Partner']
-    Partner = st.session_state['Partner']
-    Dependents = st.session_state['Dependents']
+    seniorcitizen = st.session_state['seniorcitizen']
+    partener = st.session_state['partner']
+    dependants = st.session_state['dependants']
     tenure = st.session_state['tenure']
-    PhoneService = st.session_state['PhoneService']
-    MultipleLinesr = st.session_state['MultipleLines']
-    InternetService = st.session_state['InternetService']
-    OnlineSecurity = st.session_state['OnlineSecurity']
-    OnlineBackup = st.session_state['OnlineBackup']
-    DeviceProtection = st.session_state['DeviceProtection']
-    TechSupport = st.session_state['TechSupport']
-    StreamingTV = st.session_state['StreamingTV']
-    StreamingMovies = st.session_state['StreamingMovies']
-    Contract = st.session_state['DeviceProtection']
-    PaperlessBilling = st.session_state['PaperlessBilling']
-    PaymentMethod= st.session_state['PaymentMethod']
-    MonthlyCharges = st.session_state['MonthlyCharges']
-    TotalCharges= st.session_state['TotalCharges']
+    phoneservice = st.session_state['phoneservice']
+    multipleLines = st.session_state['multipleLines']
+    internateservice = st.session_state['internateservice']
+    onlinesecurity = st.session_state['onlinesecurity']
+    onlinebackup = st.session_state['onlinebackup']
+    deviceoperation = st.session_state['deviceoperation']
+    techsupport = st.session_state['techsupport']
+    streamingtv = st.session_state['streamingtv']
+    streamingmovies = st.session_state['streamingmovies']
+    contract = st.session_state['contract']
+    paperlessbilling = st.session_state['PaperlessBilling']
+    paymentmethods= st.session_state['paymentmethods']
+    monthlycharges = st.session_state['monthlycharges']
+    totalcharges= st.session_state['totalcharges']
+    columns =['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
+        'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
+        'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
+        'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
+        'MonthlyCharges', 'TotalCharges',]
+    data = [[gender,seniorcitizen, partener, dependants,tenure,phoneservice,multipleLines, internateservice, onlinesecurity,
+              onlinebackup,deviceoperation,techsupport,streamingtv,streamingmovies, contract,paperlessbilling,
+              paymentmethods,monthlycharges,totalcharges]]
+
+    df = pd.DataFrame(data, columns=columns)
+    pred = models.predict(df)
+
+    st.session_state['pred'] = pred
+    return pred
 
 # (['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
 #        'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
@@ -62,22 +76,23 @@ def data_prediction(models, encoder):
 def create_form():
     
     with st.form('features'):
+        models, encoder = model_selection()
         col1, col2, col3 = st.columns(3)
         with col1:
             st.write('##### Personal information')
             gender = st.number_input('input age', min_value=18, max_value=60, step=1, key='gender')
             seniorcitizen = st.selectbox('select yes or No', options= ["yes","No"],key='seniorcitizen')
             Partener = st.selectbox('select', options= ["yes","No"], key='partener')
-            # st.selectbox('select yes or No', options= ["yes","No"])
+            dependants = st.selectbox('select yes or No', options= ["yes","No"])
         
             tenure = st.number_input('enter number of tenure', min_value=1, max_value=73, step=1, key='tenure')
             contract = st.selectbox(' Select Contract', options=['Month-to-month', 'One year' ,'Two year'])
         with col2:
             st.write('##### Select Types of Services')
-            PhoneSevice = st.selectbox('Phone Service', options=['No phone service' ,'No' ,'Yes'],key='phone service')
+            Phoneservice = st.selectbox('Phone Service', options=['No phone service' ,'No' ,'Yes'],key='phone service')
             multipleLine = st.selectbox('Multiple Line', options=['DSL', 'Fiber optic', 'No'], key='multipleline')
-            InternateService = st.selectbox(' Internet Service', options=['No', 'Yes', 'No internet service'], key='internateservice')
-            onlineSecurity =st.selectbox('Online security', options=['No', 'Yes', 'No internet service'],key='onlinesecurity')
+            internateservice = st.selectbox(' Internet Service', options=['No', 'Yes', 'No internet service'], key='internateservice')
+            onlinesecurity =st.selectbox('Online security', options=['No', 'Yes', 'No internet service'],key='onlinesecurity')
             onlinebackup = st.selectbox('Online Backup', options=['Yes', 'No','No internet service'], key='onlinebackup')
             deviceprotection = st.selectbox(' Device Protection', options=['No', 'Yes', 'No internet service'],key='deviceoperation')
             techsupport = st.selectbox(' Tech Support', options=['No', 'Yes', 'No internet service'], key='techsupport')
@@ -91,15 +106,16 @@ def create_form():
             monthlycharges = st.number_input('Enter Monthly Charges', min_value=20, max_value=120, step=50,key='monthlycharges')
             totalcharges = st.number_input('Enter Total Charges', min_value=20, max_value=7000, step=50,key='totalcharges')
      
-
-    st.form_submit_button('Submit')
+st.form_submit_button('Submit', on_click=data_prediction, kwargs=dict
+                      (models=models, encoder=encoder))
 
 if __name__ == "_main_":
+    
 
-
-
- model_selection()
-
+ st.title('data_prediction')
+#  model_selection()
+final_prediction = st.session_state['pred']
+st.write('final_prediction')
 
 create_form()
 st.write(st.session_state)
