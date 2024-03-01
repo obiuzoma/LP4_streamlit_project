@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-
+# create page lay out
 st.set_page_config(
     page_title='Predict Data',
     page_icon = ':)',
@@ -10,28 +10,39 @@ st.set_page_config(
 )
 
 
+# write title for preiction page
 st.title('Data Prediction')
+
+
 st.cache_resource(show_spinner='Model loading')
+
+# create funtion for gradient boost pipiline
 def gradient_pipline():
     models = joblib.load("./models/gradient_pipeline.joblib")
     return models
 
+# code to cache the model
 st.cache_resource(show_spinner='Model loading')
+
+# create function for naives pipline
 def naives_pipeline():
-    models= joblib.load('./models/Naives_pipeline.joblib')
+    models = joblib.load('./models/Naives_pipeline.joblib')
     return models
 
+# create function for model selection
 def model_selection():
     st.selectbox('choose a model', options=['Gradient Model', 'Naieves model'], key='choose_model')
     if  st.session_state['choose_model'] == 'Gradient Model':
         models = gradient_pipline ()
     else:
-       naives = naives_pipeline()
+        models = naives_pipeline()
 
     encoder = joblib.load('./models/encoder.joblib')
 
     return models, encoder
 
+
+# code to make a preidction
 def data_prediction(models, encoder):
     gender = st.session_state['gender']
     seniorcitizen = st.session_state['seniorcitizen']
@@ -49,7 +60,7 @@ def data_prediction(models, encoder):
     streamingmovies = st.session_state['streamingmovies']
     contract = st.session_state['contract']
     paperlessbilling = st.session_state['PaperlessBilling']
-    paymentmethods= st.session_state['paymentmethods']
+    paymentmethods = st.session_state['paymentmethods']
     monthlycharges = st.session_state['monthlycharges']
     totalcharges= st.session_state['totalcharges']
     columns =['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
@@ -60,21 +71,17 @@ def data_prediction(models, encoder):
     data = [[gender,seniorcitizen, partener, dependants,tenure,phoneservice,multipleLines, internateservice, onlinesecurity,
               onlinebackup,deviceoperation,techsupport,streamingtv,streamingmovies, contract,paperlessbilling,
               paymentmethods,monthlycharges,totalcharges]]
-
-    df = pd.DataFrame(data, columns=columns)
-    pred = models.predict(df)
-
-    st.session_state['pred'] = pred
-    return pred
-
-# (['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
-#        'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
-#        'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
-#        'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
-#        'MonthlyCharges', 'TotalCharges', 'Churn'],
-#       dtype='object')
-def create_form():
     
+# create  a d ata frame
+    df = pd.DataFrame(data, columns=columns)
+    prediction = models.predict(df)
+
+    st.session_state['prediction'] = prediction
+    return prediction
+
+
+# create a form
+def create_form():
     with st.form('features'):
         models, encoder = model_selection()
         col1, col2, col3 = st.columns(3)
@@ -105,17 +112,23 @@ def create_form():
             'Credit card (automatic)'],key='paymentmethods')
             monthlycharges = st.number_input('Enter Monthly Charges', min_value=20, max_value=120, step=50,key='monthlycharges')
             totalcharges = st.number_input('Enter Total Charges', min_value=20, max_value=7000, step=50,key='totalcharges')
-     
-st.form_submit_button('Submit', on_click=data_prediction, kwargs=dict
-                      (models=models, encoder=encoder))
+    
+    summitted= st.form_submit_button("Submit")
+    if summitted:
+        st.write( models, encoder = model_selection())
+        data_prediction(models, encoder)
+
+create_form()
+
 
 if __name__ == "_main_":
     
+    st.title('Data Prediction')
+# create_form()
+        #  model_selection()
+final_prediction = st.session_state['prediction']
 
- st.title('data_prediction')
-#  model_selection()
-final_prediction = st.session_state['pred']
+
+   
 st.write('final_prediction')
-
-create_form()
 st.write(st.session_state)
