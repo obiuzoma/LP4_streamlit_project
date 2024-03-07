@@ -10,7 +10,7 @@ st.set_page_config(
     layout='wide'    
 )
 
-st.title('Data Page',"data:")
+st.title('🛢️Data Page',"data:")
 # Load environment variables from .env file into a dictionary
 environment_variables = dotenv_values('.env')
 
@@ -38,14 +38,14 @@ with col2:
     choose_options = st.selectbox('Select Data Columns', options=('Data columns','Numerical Columns','Categorical columns'))
 
 df = data
-if choose_options == "Numerical columns":
-    st.subheader('Numeric columns')
+if choose_options == "Numerical Columns":
+    st.subheader('Numerical columns')
     st.write(df.select_dtypes(include='number'))
-elif choose_options == "Categorical columnss":
+elif choose_options == "Categorical columns":
     st.subheader('Categorical columns')
     st.write(df.select_dtypes(include='object'))
 else:
-    st.subheader('Categorical columns')
+    st.subheader('Data Columns')
     st.write(df)
 
 

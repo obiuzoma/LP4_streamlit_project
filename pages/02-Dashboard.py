@@ -23,12 +23,10 @@ with col2:
     choose_options = st.selectbox('Choose Dashboard', options=('KPI', 'EDA'))
 
 
-
-
 #  understand the churn rate of customers
 total_customers = len(df["Churn"])
-churn_customer = len(df[df['Churn'] == 1])
-non_churn_customer = len(df[df['Churn'] == 0])
+churn_customer = len(df[df['Churn'] == 'Yes'])
+non_churn_customer = len(df[df['Churn'] == 'No'])
 churn_rate = churn_customer / total_customers * 100
 
 # create four columns
@@ -62,31 +60,58 @@ def create_kpi():
 # create two columns for charts
     fig_col1, fig_col2, fig_col3= st.columns(3)
 
+    
     with fig_col1:
-        st.markdown("#### Density Heatmap for Numerical columns")
-        num_df = df.select_dtypes(include='number')
-        fig = px.density_heatmap(data_frame = num_df)
-        st.write(fig)
+        
+        fig1 = px.histogram(data_frame =df, x= 'TotalCharges')
+        # fig = px.density_heatmap(data_frame = num_df)
+        st.write(fig1)
     
-    
+  
+        
+    fig2 = px.histogram(data_frame =df, x= 'MonthlyCharges')
+    # fig2 = px.density_heatmap(data_frame = num_df)
+    st.write(fig2)
+
+    st.markdown("#### Density Heatmap for Numerical columns")
+    num_df = df.select_dtypes(include='number')
+    # fig3 = px.histogram(data_frame = num_df)
+    fig3 = px.density_heatmap(data_frame = num_df)
+    st.write(fig3)
    
-    with fig_col2:
-        st.markdown("#### Box plot for Mumerical columns")
-        num_df = df.select_dtypes(include='number')
-        fig2 = px.box(data_frame = num_df)
-        st.write(fig2)
-    # with fig_col3:
-    #     pass
+    
+    st.markdown("#### Box plot for Mumerical columns")
+    num_df = df.select_dtypes(include='number')
+    fig2 = px.box(data_frame = num_df)
+    st.write(fig2)
+
+
+    
+
+
 def create_eda():
-    eda_col1, eda_col2, eda_col3 = st.columns
+    eda_col1, eda_col2= st.columns(2)
     with eda_col1:
-        fig_eda1 = px.histogram(data_frame = df, x='Churn', color_discrete_sequence=['orange', 'blue'])
-        # fig_eda1.update_layout(barmode='group')
+        st.subheader("Frequently used internet service")
+        fig_eda1 = px.histogram(data_frame = df, x='PaymentMethod', color='Churn',  color_discrete_sequence=['orange', 'blue'])
+        fig_eda1.update_layout(barmode='group')
+        st.write(fig_eda1)
+    
+    with eda_col2:
+        st.markdown('####  Gender with Highest Churn')
+        fig_eda1 = px.bar(data_frame=df, x='gender', color='Churn', color_discrete_sequence=['orange', 'blue'])
+        fig_eda1.update_layout(barmode='group')
+        st.write(fig_eda1)
+    
+    eda_col3, eda_col4 = st.columns(2)
+    with eda_col3:
+        st.markdown('####  Contract Type with Highest Churn')
+        fig_eda1 = px.bar(data_frame=df, x='Contract', color='Churn', color_discrete_sequence=['orange', 'blue'])
+        fig_eda1.update_layout(barmode='group')
         st.write(fig_eda1)
 
 if choose_options == 'KPI':
     
-    st.subheader('KPIn Dashboard')
     create_kpi()
 else:
     choose_options == 'EDA'
