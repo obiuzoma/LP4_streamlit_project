@@ -9,7 +9,8 @@ st.set_page_config(
     page_icon = ':)',
     layout='wide'
 )
-st.title('Home Page',"home:")
+st.title('Home Page',"🏛️home:")
+st.image('time_series_image.jpg')
 
 with open('config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
