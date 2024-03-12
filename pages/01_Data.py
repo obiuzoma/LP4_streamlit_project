@@ -11,31 +11,32 @@ st.set_page_config(
 )
 
 st.title('🛢️Data Page',"data:")
-# Load environment variables from .env file into a dictionary
-environment_variables = dotenv_values('.env')
+# # Load environment variables from .env file into a dictionary
+# environment_variables = dotenv_values('.env')
 
-# Get the values for the credentials you set in the '.env' file
-server = environment_variables.get("SERVER")
-database = environment_variables.get("DATABASE")
-username = environment_variables.get("USERNAME")
-password = environment_variables.get("PASSWORD")
+# # Get the values for the credentials you set in the '.env' file
+# server = environment_variables.get("SERVER")
+# database = environment_variables.get("DATABASE")
+# username = environment_variables.get("USERNAME")
+# password = environment_variables.get("PASSWORD")
 
-# code to connect to the server, user name, password, database and table
+# # code to connect to the server, user name, password, database and table
 
-conn_str =f"DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}"
+# conn_str =f"DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}"
 
 
-# connection to the server using the pyodbc
-connection = pyodbc.connect(conn_str)
+# # connection to the server using the pyodbc
+# connection = pyodbc.connect(conn_str)
 
-query = "SELECT * FROM LP2_Telco_churn_first_3000"
+# query = "SELECT * FROM LP2_Telco_churn_first_3000"
 
-data = pd.read_sql(query, connection)
-# st.dataframe(data)
+def
+# data = pd.read_sql(query, connection)
+# # st.dataframe(data)
 
-col1, col2 = st.columns(2)
-with col2:
-    choose_options = st.selectbox('Select Data Columns', options=('Data columns','Numerical Columns','Categorical columns'))
+# col1, col2 = st.columns(2)
+# with col2:
+#     choose_options = st.selectbox('Select Data Columns', options=('Data columns','Numerical Columns','Categorical columns'))
 
 df = data
 if choose_options == "Numerical Columns":
