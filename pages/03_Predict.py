@@ -72,7 +72,10 @@ def make_prediction(model, encoder, model_display_name):
     df['Model Used'] = model_display_name
     
     history_dir = './history_data'
-    if not os.path.exists(history_dir):
+    # if not os.path.exists(history_dir):
+    # if os.path.exists('./data/history.csv'):
+    if os.path.exists('./data/history.csv'):
+
         os.makedirs(history_dir)
     
     df.to_csv(os.path.join(history_dir, 'history.csv'), mode='a', header=not os.path.exists(os.path.join(history_dir, 'history.csv')), index=False)

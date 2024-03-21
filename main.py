@@ -16,39 +16,58 @@ def project_description():
     col1, col2 = st.columns(2)
     with col1:
 
-        st.markdown('#### Customer Churn Prediction')
+        st.markdown('#### Customer Churn Prediction App')
         ('''
-         
-        customer churn prediction app is designed to help managers predict the likelyhood of customers leaving their company or not
+            
+        **Overview:**
 
-        **Key Features**
-        - Home page: Login details and app descriptions
-        - Data page:Sample of data use for the traing of the models
-        - Dashboard: contain the KPI and EDA of the customer data interactive visualization and insights
-        -  Prediction Page:A form to predict wether a customer will stop using company product
-        - History Page:Table containing the data of predicted cuntomers
+        The customer churn prediction app is designed to help managers predict the likelihood of customers leaving their company.
+
+        ### Key Features:
+
+        - **Home Page:** Login details and app descriptions.
+        - **Data Page:** Sample data used from Vodafone company.
+        - **Dashboard:** Contains Key Performance Indicators (KPI) and Exploratory Data Analysis (EDA) of the customer data with interactive visualization and insights.
+        - **Prediction Page:** A form to predict whether a customer will stop using company products.
+        - **History Page**: Table containing the data of predicted customers.
+
+        ### User Benefits
+
+        - **Data-deriven Decision:** Make informed decision backed by data analytics
+        - **Easy Machine Learning:** utilize powerful machine learning algorithm effortlessy
     ''')
+
     with col2:
-        pass
         ('''
-        **How to run the app**
-        - clone this repositary on your local machine
-        
-        cd my_folder
-        clone https://github.com/obiuzoma/LP4_streamlit_project.git
-         
-        
-        - Change into the cloned repository
-        cd LP4_streamlit_project
-        - Create a virtual environment:
 
-        python -m virtual_env env
-        - Activate the virtual environment:
-        virtual_env/scripts/activate
+        **How to Run the App:**
+        1. install requirement.txt
+                ```
+                pip install reqirement.txt
+                ```
+        2. Clone this repository to your local machine:
 
+                cd my_folder
+
+                clone https://github.com/obiuzoma/LP4_streamlit_project.git
+        
+        3. Change into the cloned repository:
+            cd LP4_streamlit_project
+        4. Create a virtual environment:
+            python -m virtual_env env
+        5. Activate the virtual environment:
+        - On Windows:
+        ```
+        .\env\Scripts\activate
+        ```
+        - On macOS and Linux:
+        ```
+        source env/bin/activate
+        ```
         **Need Help?**
 
-        Congtact @: uzyivy@gmail.com
+        Contact: uzyivy@gmail.com
+
         ''')
 
 
