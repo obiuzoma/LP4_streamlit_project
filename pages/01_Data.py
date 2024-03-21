@@ -11,34 +11,37 @@ st.set_page_config(
 )
 
 st.title('🛢️Data Page',"data:")
-# # Load environment variables from .env file into a dictionary
-# environment_variables = dotenv_values('.env')
+# # # Load environment variables from .env file into a dictionary
+# # environment_variables = dotenv_values('.env')
 
-# # Get the values for the credentials you set in the '.env' file
-# server = environment_variables.get("SERVER")
-# database = environment_variables.get("DATABASE")
-# username = environment_variables.get("USERNAME")
-# password = environment_variables.get("PASSWORD")
+# # # Get the values for the credentials you set in the '.env' file
+# # server = environment_variables.get("SERVER")
+# # database = environment_variables.get("DATABASE")
+# # username = environment_variables.get("USERNAME")
+# # password = environment_variables.get("PASSWORD")
 
-# # code to connect to the server, user name, password, database and table
+# # # code to connect to the server, user name, password, database and table
 
-# conn_str =f"DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}"
+# # conn_str =f"DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}"
 
 
-# # connection to the server using the pyodbc
-# connection = pyodbc.connect(conn_str)
+# # # connection to the server using the pyodbc
+# # connection = pyodbc.connect(conn_str)
 
-# query = "SELECT * FROM LP2_Telco_churn_first_3000"
+# # query = "SELECT * FROM LP2_Telco_churn_first_3000"
 
 # def
-# data = pd.read_sql(query, connection)
-# # st.dataframe(data)
+# # data = pd.read_sql(query, connection)
 
-# col1, col2 = st.columns(2)
-# with col2:
-#     choose_options = st.selectbox('Select Data Columns', options=('Data columns','Numerical Columns','Categorical columns'))
+# # # st.dataframe(data)
+df = pd.read_csv('data_churn.csv')
+# st.dataframe(df)
 
-df = data
+col1, col2 = st.columns(2)
+with col2:
+    choose_options = st.selectbox('Select Data Columns', options=('Data columns','Numerical Columns','Categorical columns'))
+
+
 if choose_options == "Numerical Columns":
     st.subheader('Numerical columns')
     st.write(df.select_dtypes(include='number'))
@@ -51,31 +54,7 @@ else:
 
 
 
-# def divide_table(df):
-#     categorical_cols = []
-#     numerical_cols = []
-    
-#     for col in df.columns:
-#         if pd.api.types.is_categorical_dtype(df[col]):
-#             categorical_cols.append(col)
-#         elif pd.api.types.is_numeric_dtype(df[col]):
-#             numerical_cols.append(col)
-    
-#     categorical_table = df[categorical_cols]
-#     numerical_table = df[numerical_cols]
-    
-#     # Concatenate the dataframes vertically
-#     combined_df = pd.concat([categorical_table, numerical_table], axis=0)
-    
-#     return combined_df
-
-# # Example usage:
-# # Assuming data is your data table (DataFrame)
-# combined_table = divide_table(data)
-
-# st.dataframe(combined_table)
 
 
 
-# df = pd.read_csv('data_churn.csv')
-# st.dataframe(df)streamlit run main.py
+
