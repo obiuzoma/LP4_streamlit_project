@@ -30,7 +30,7 @@ st.title('🛢️Data Page',"data:")
 
 # query = "SELECT * FROM LP2_Telco_churn_first_3000"
 
-def
+# def
 # data = pd.read_sql(query, connection)
 # # st.dataframe(data)
 
