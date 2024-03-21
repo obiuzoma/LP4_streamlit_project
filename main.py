@@ -10,38 +10,67 @@ st.set_page_config(
     layout='wide'
 )
 st.title('Home Page',"🏛️home:")
-st.image('time_series_image.jpg')
+# st.image('time_series_image.jpg')
 
 def project_description():
     col1, col2 = st.columns(2)
     with col1:
 
-        st.markdown('#### Customer Churn Prediction')
-        st.write('customer churn prediction app is designed to help managers predict the likelyhood of customers leaving their company or not')
-        st.subheader('Key Features')
-        st.markdown('##### * Home page')
-        st.write('Login details of the app')
-        st.markdown('##### * Data page')
-        st.write('Sample of data use for the traing of the models')
-        st.markdown('##### * Dashboard')
-        st.write('This page contain the KPI and EDA of the customer data')
-        st.markdown('##### * Prediction Page')
-        st.write('A form to predict wether a customer will stop using company product')
-        st.markdown('##### * History Page')
-        st.write('Table containing the data of predicted cuntomers')
-    with col2:
-        st.subheader('How to run the app')
-        st.write('clone this repositary on your local machine')
-        st.write('cd my_folder')
-        st.write('clone https://github.com/obiuzoma/LP4_streamlit_project.git')
-        st.write('Change into the cloned repository')
-        st.write('cd LP4_streamlit_project')
-        st.write('Create a virtual environment')
-        st.write('python -m virtual_env env')
-        st.write('Activate the virtual environment')
+        st.markdown('#### Customer Churn Prediction App')
+        ('''
+            
+        **Overview:**
 
-        st.markdown('##### * Need Help?')
-        st.write('Congtact @: uzyivy@gmail.com')
+        The customer churn prediction app is designed to help managers predict the likelihood of customers leaving their company.
+
+        ### Key Features:
+
+        - **Home Page:** Login details and app descriptions.
+        - **Data Page:** Sample data used from Vodafone company.
+        - **Dashboard:** Contains Key Performance Indicators (KPI) and Exploratory Data Analysis (EDA) of the customer data with interactive visualization and insights.
+        - **Prediction Page:** A form to predict whether a customer will stop using company products.
+        - **History Page**: Table containing the data of predicted customers.
+
+        ### User Benefits
+
+        - **Data-deriven Decision:** Make informed decision backed by data analytics
+        - **Easy Machine Learning:** utilize powerful machine learning algorithm effortlessy
+    ''')
+
+    with col2:
+        ('''
+
+        **How to Run the App:**
+        1. install requirement.txt
+                ```
+                pip install reqirement.txt
+                ```
+        2. Clone this repository to your local machine:
+
+                cd my_folder
+
+                clone https://github.com/obiuzoma/LP4_streamlit_project.git
+        
+        3. Change into the cloned repository:
+            cd LP4_streamlit_project
+        4. Create a virtual environment:
+            python -m virtual_env env
+        5. Activate the virtual environment:
+        - On Windows:
+        ```
+        .\env\Scripts\activate
+        ```
+        - On macOS and Linux:
+        ```
+        source env/bin/activate
+        ```
+        **Need Help?**
+
+        Contact: uzyivy@gmail.com
+
+        ''')
+
+
 st.write('login Details')
 st.write('User Name: uzoma')
 st.write('Passward: abc')
